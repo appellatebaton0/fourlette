@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dktck63xjlheb"]
+
+[ext_resource type="Script" uid="uid://cmthbiklca8sn" path="res://scripts/behavior_states/bs_ground_right.gd" id="1_afv2f"]
+
+[node name="BS_Ground_Right" type="Node2D" node_paths=PackedStringArray("hit_wall_state")]
+script = ExtResource("1_afv2f")
+hit_wall_state = NodePath("")

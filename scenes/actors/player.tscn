@@ -1,0 +1,54 @@
+[gd_scene load_steps=11 format=3 uid="uid://carejpbcf6jys"]
+
+[ext_resource type="Script" uid="uid://big5yc5e6qq5p" path="res://scripts/actor.gd" id="1_qlg0r"]
+[ext_resource type="PackedScene" uid="uid://c3hcityux3lkb" path="res://scenes/components/cp_sprite.tscn" id="2_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://cvys03k1yjjp4" path="res://assets/textures/player.png" id="3_tuyoq"]
+[ext_resource type="PackedScene" uid="uid://cjynrmsc0u3mc" path="res://scenes/components/cp_behavior.tscn" id="4_dqkch"]
+[ext_resource type="PackedScene" uid="uid://cablupxgjoeed" path="res://scenes/behavior_states/bs_ground_control.tscn" id="5_qlg0r"]
+[ext_resource type="PackedScene" uid="uid://dp85f380yjqhx" path="res://scenes/behavior_states/bs_water_control.tscn" id="6_8y416"]
+[ext_resource type="PackedScene" uid="uid://cit6wsj3cqvwo" path="res://scenes/components/cp_health.tscn" id="7_7860b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smehm"]
+atlas = ExtResource("3_tuyoq")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ur7pv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smehm")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8y416"]
+size = Vector2(256, 256)
+
+[node name="Player" type="Node2D"]
+z_index = 1
+script = ExtResource("1_qlg0r")
+metadata/_custom_type_script = "uid://big5yc5e6qq5p"
+
+[node name="CP_Sprite" parent="." instance=ExtResource("2_qlg0r")]
+sprite_frames = SubResource("SpriteFrames_ur7pv")
+animation = &"idle"
+
+[node name="CP_Behavior" parent="." node_paths=PackedStringArray("current_state") instance=ExtResource("4_dqkch")]
+collision_layer = 2
+current_state = NodePath("BS_GroundControl")
+
+[node name="BS_GroundControl" parent="CP_Behavior" node_paths=PackedStringArray("entered_water_state") instance=ExtResource("5_qlg0r")]
+entered_water_state = NodePath("../BS_WaterControl")
+LEFT_FLOOR_BUFFER = 0.2
+SLIDE_ACCELERATION = 50.0
+SLIDE_SPEED = 25.0
+
+[node name="BS_WaterControl" parent="CP_Behavior" node_paths=PackedStringArray("exited_water_state") instance=ExtResource("6_8y416")]
+exited_water_state = NodePath("../BS_GroundControl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Behavior"]
+shape = SubResource("RectangleShape2D_8y416")
+
+[node name="CP_Health" parent="." instance=ExtResource("7_7860b")]

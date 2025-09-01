@@ -1,0 +1,57 @@
+[gd_scene load_steps=11 format=3 uid="uid://d0c6y0y3yu4xv"]
+
+[ext_resource type="Script" uid="uid://big5yc5e6qq5p" path="res://scripts/actor.gd" id="1_wnlie"]
+[ext_resource type="PackedScene" uid="uid://c3hcityux3lkb" path="res://scenes/components/cp_sprite.tscn" id="2_8cmlx"]
+[ext_resource type="Texture2D" uid="uid://c13i5tmnwl6ha" path="res://assets/textures/walking_enemy.png" id="3_jnnwl"]
+[ext_resource type="PackedScene" uid="uid://cjynrmsc0u3mc" path="res://scenes/components/cp_behavior.tscn" id="4_ulrwq"]
+[ext_resource type="PackedScene" uid="uid://t3wcyvaf2nr5" path="res://scenes/behavior_states/bs_ground_left.tscn" id="5_kl8te"]
+[ext_resource type="PackedScene" uid="uid://dktck63xjlheb" path="res://scenes/behavior_states/bs_ground_right.tscn" id="6_8cmlx"]
+[ext_resource type="PackedScene" uid="uid://blw8a1usxebnw" path="res://scenes/components/cp_attack.tscn" id="7_jnnwl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvoyu"]
+atlas = ExtResource("3_jnnwl")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7ld8c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvoyu")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4fc1g"]
+size = Vector2(256, 256)
+
+[node name="WalkingEnemy" type="Node2D"]
+script = ExtResource("1_wnlie")
+metadata/_custom_type_script = "uid://big5yc5e6qq5p"
+
+[node name="CP_Sprite" parent="." instance=ExtResource("2_8cmlx")]
+sprite_frames = SubResource("SpriteFrames_7ld8c")
+animation = &"Idle"
+
+[node name="CP_Behavior" parent="." node_paths=PackedStringArray("current_state") instance=ExtResource("4_ulrwq")]
+z_index = -1
+collision_layer = 4
+current_state = NodePath("BS_Ground_Left")
+
+[node name="BS_Ground_Left" parent="CP_Behavior" node_paths=PackedStringArray("hit_wall_state") instance=ExtResource("5_kl8te")]
+hit_wall_state = NodePath("../BS_Ground_Right")
+
+[node name="BS_Ground_Right" parent="CP_Behavior" node_paths=PackedStringArray("hit_wall_state") instance=ExtResource("6_8cmlx")]
+hit_wall_state = NodePath("../BS_Ground_Left")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Behavior"]
+shape = SubResource("RectangleShape2D_4fc1g")
+
+[node name="CP_Attack" parent="." instance=ExtResource("7_jnnwl")]
+collision_layer = 4
+collision_mask = 2
+knockback = 3000.0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CP_Attack"]
+shape = SubResource("RectangleShape2D_4fc1g")

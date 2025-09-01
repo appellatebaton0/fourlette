@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://t3wcyvaf2nr5"]
+
+[ext_resource type="Script" uid="uid://dpqaikkfv35xp" path="res://scripts/behavior_states/bs_ground_left.gd" id="1_oxtlf"]
+
+[node name="BS_Ground_Left" type="Node2D"]
+script = ExtResource("1_oxtlf")

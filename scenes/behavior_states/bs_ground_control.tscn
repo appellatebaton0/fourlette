@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://cablupxgjoeed"]
+
+[ext_resource type="Script" uid="uid://g6kw786f0p56" path="res://scripts/behavior_states/bs_control_ground.gd" id="1_j6qxg"]
+
+[node name="BS_GroundControl" type="Node2D"]
+script = ExtResource("1_j6qxg")
+MAX_SPEED = 700.0
+ACCELERATION = 120.0
+AIR_ACCELERATION = 120.0
+FRICTION = 60.0
+AIR_FRICTION = 2.0
+JUMP_VELOCITY = -900.0
+WALL_JUMP_VELOCITY = Vector2(800, -1000)
+SLIDE_ACCELERATION = 100.0
+SLIDE_SPEED = 0.0
+GRAVITY_MULTIPLIER = 3.0

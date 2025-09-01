@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsjwsyj2in8of"]
+
+[ext_resource type="Script" uid="uid://cyq2233e1d7rm" path="res://scripts/rain.gd" id="1_tchf5"]
+
+[node name="Rain" type="Node2D"]
+script = ExtResource("1_tchf5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

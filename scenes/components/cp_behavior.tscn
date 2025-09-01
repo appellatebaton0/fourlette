@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjynrmsc0u3mc"]
+
+[ext_resource type="Script" uid="uid://cmo7f4cirlna5" path="res://scripts/components/cp_behavior.gd" id="1_mm7ps"]
+
+[node name="CP_Behavior" type="CharacterBody2D"]
+script = ExtResource("1_mm7ps")

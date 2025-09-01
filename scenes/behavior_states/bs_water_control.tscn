@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dp85f380yjqhx"]
+
+[ext_resource type="Script" uid="uid://d1ykklq0oswgt" path="res://scripts/behavior_states/bs_water_control.gd" id="1_g5g7h"]
+
+[node name="BS_WaterControl" type="Node2D"]
+script = ExtResource("1_g5g7h")
+RESISTANCE = 30.0
