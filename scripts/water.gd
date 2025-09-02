@@ -2,8 +2,9 @@ extends Node2D
 class_name Water
 
 @export var camera:Camera
-const WATER_RISE_AMOUNT:float = 10000.0
+const WATER_RISE_AMOUNT:float = 8000.0
 
+@export var water_next:Node2D
 @export var layer_texture:Texture2D
 
 func _ready() -> void:
@@ -12,7 +13,8 @@ func _ready() -> void:
 
 func get_camera_underbound():
 	var viewrect:Rect2 = get_viewport_rect()
-	return camera.global_position.y + (viewrect.size.y / 2 / camera.zoom.y)
+	
+	return camera.global_position.y + (viewrect.size.y / 2 / camera.zoom.y * 1.3)
 
 func make_new_water_layer() -> Sprite2D:
 	var new = Sprite2D.new()
@@ -35,13 +37,18 @@ func _process(delta: float) -> void:
 		if child is Node2D:
 			child.global_position.y = Global.water_level + (256 * (1 + child.get_index())) - 128
 	
-	if abs(last_child.global_position.y - get_camera_underbound()) > 40:
+	water_next.global_position.y = Global.water_level - WATER_RISE_AMOUNT
+	
+	if get_child_count() > 3 and abs(last_child.global_position.y - get_camera_underbound()) > 40:
 		last_child.queue_free()
 	
-	modulate.a = move_toward(modulate.a, 0.5 if Global.player_is_in_water else 1.0, delta)
+	modulate.a = move_toward(modulate.a, 0.5 if Global.player_is_in_water else 0.75, delta)
 	
 
 func _on_day_ended(depth:int):
 	if depth != 1:
 		return
 	Global.water_level -= WATER_RISE_AMOUNT
+	
+	if Global.player_will_be_in_water:
+		Global.water_level = 0

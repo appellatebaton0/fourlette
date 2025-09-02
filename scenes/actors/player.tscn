@@ -41,6 +41,9 @@ current_state = NodePath("BS_GroundControl")
 
 [node name="BS_GroundControl" parent="CP_Behavior" node_paths=PackedStringArray("entered_water_state") instance=ExtResource("5_qlg0r")]
 entered_water_state = NodePath("../BS_WaterControl")
+MAX_SPEED = 800.0
+JUMP_VELOCITY = -950.0
+WALL_JUMP_VELOCITY = Vector2(800, -1100)
 LEFT_FLOOR_BUFFER = 0.2
 SLIDE_ACCELERATION = 50.0
 SLIDE_SPEED = 25.0

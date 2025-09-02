@@ -13,23 +13,30 @@ var signal_emitted = false
 
 var fade_time:float = 0.0
 
+var in_pause:bool = false
+
 func start():
 	switch = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
+	in_pause = false
 	# Manage the fading.
 	if switch:
 		fade_time = move_toward(fade_time, START_TIME + FADE_TIME + PAUSE_TIME + FADE_TIME, delta)
 		
+		in_pause = fade_time - START_TIME - FADE_TIME > 0 and fade_time - START_TIME - FADE_TIME < PAUSE_TIME
+		
 		# IF past the start buffer and before the end of the fade, fade out.
 		if fade_time > START_TIME and fade_time < START_TIME + FADE_TIME:
 			progress = (fade_time - START_TIME) / FADE_TIME
+			material.set_shader_parameter("progress", min(1.0, progress))
 		# IF past the start, fade out, and pause buffers, fade in.
 		elif fade_time - START_TIME - FADE_TIME > PAUSE_TIME:
 			progress = 1.0 - ((fade_time - START_TIME - FADE_TIME - PAUSE_TIME) / FADE_TIME)
-		
+			material.set_shader_parameter("progress", min(1.0, progress))
+
 		# Emit the response signal once fully faded.
 		if fade_time >= START_TIME + FADE_TIME and not signal_emitted:
 			fully_faded.emit()
@@ -42,4 +49,3 @@ func _process(delta: float) -> void:
 		signal_emitted = false
 	
 	# Match the shader variable to the code variable.
-	material.set_shader_parameter("progress", progress)
