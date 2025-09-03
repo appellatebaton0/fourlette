@@ -11,7 +11,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	verdict.modulate.a = move_toward(verdict.modulate.a, 1.0 if day_fade_overlay.in_pause else 0.0, delta)
-
+	
+	$MarginContainer/ProgressBar.max_value = Global.TIME_IN_DAY
+	$MarginContainer/ProgressBar.value = Global.TIME_IN_DAY - Global.day_time
 
 func _on_day_ended(depth:int):
 	match depth:

@@ -13,6 +13,8 @@ config_version=5
 config/name="fourlette"
 run/main_scene="uid://opwn7fy3rv4o"
 config/features=PackedStringArray("4.4", "Forward Plus")
+boot_splash/bg_color=Color(0.196, 0.2464, 0.28, 1)
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [autoload]

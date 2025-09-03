@@ -1,22 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2xahfvj13yox"]
+[gd_scene load_steps=3 format=3 uid="uid://d2xahfvj13yox"]
 
 [ext_resource type="Script" uid="uid://d3u5sldvrroy" path="res://scripts/rain_particle.gd" id="1_uq2g0"]
 [ext_resource type="Texture2D" uid="uid://c5uqf1636ytgx" path="res://assets/textures/rain.png" id="2_tbh67"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbh67"]
-size = Vector2(59, 6)
-
-[node name="RainParticle" type="Area2D"]
-collision_layer = 8
-collision_mask = 15
+[node name="RainParticle" type="Node2D"]
 script = ExtResource("1_uq2g0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_tbh67")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2.5, 0)
-shape = SubResource("RectangleShape2D_tbh67")
-
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
