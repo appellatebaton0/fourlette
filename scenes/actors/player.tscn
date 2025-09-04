@@ -31,9 +31,11 @@ z_index = 1
 script = ExtResource("1_qlg0r")
 metadata/_custom_type_script = "uid://big5yc5e6qq5p"
 
-[node name="CP_Sprite" parent="." instance=ExtResource("2_qlg0r")]
+[node name="CP_Sprite" parent="." node_paths=PackedStringArray("behavior_component") instance=ExtResource("2_qlg0r")]
+modulate = Color(0.71, 0, 0.6745, 1)
 sprite_frames = SubResource("SpriteFrames_ur7pv")
 animation = &"idle"
+behavior_component = NodePath("../CP_Behavior")
 
 [node name="CP_Behavior" parent="." node_paths=PackedStringArray("current_state") instance=ExtResource("4_dqkch")]
 collision_layer = 2

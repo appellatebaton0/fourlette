@@ -13,6 +13,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	Global.player_is_in_water = (player.global_position.y > Global.water_level)
 	Global.player_will_be_in_water = (player.global_position.y > Global.water_level - water.WATER_RISE_AMOUNT)
+	
+	if player.global_position.y < -16000:
+		$CanvasLayer/UI/End.modulate.a += delta;
 	# print(Global.player_is_in_water)
 
 func _on_spawn_particle(particle:Particle, at:Vector2):
